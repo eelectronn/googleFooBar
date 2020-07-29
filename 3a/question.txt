@@ -1,0 +1,2 @@
+Given a binary maze, where 0 is passable and 1 is not. Find the shortest distance from top-left to bottom-right, where
+we are allowed to break one wall.

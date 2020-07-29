@@ -1,0 +1,1 @@
+Given an array a and an integer n, manipulate a to remove all the occurrence of some number s that occur more then n times.

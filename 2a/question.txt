@@ -1,0 +1,6 @@
+7
+4 8
+2 5 9
+1 3 6 10
+
+There is an infinite structure like above. Given x (distance from left) and y (distance from base), give the number at the (x, y)
