@@ -7,10 +7,43 @@ def solution(dim, a, b, limit):
     a = (a[0], a[1])
     b = (b[0], b[1])
     ref_a, ref_b, ref_b_radial = get_reflection_points(dim, a, b, limit)
-    print(len(ref_a))
-    print(len(ref_b))
-    lines = find_lines(a, ref_a, ref_b, ref_b_radial)
-    return len(lines)
+    lines = get_lines(a, ref_a, ref_b)
+    attacks = find_attacks(*lines)
+    return attacks
+
+
+def find_attacks(lines_a, lines_b):
+    attacks = 0
+    for line in lines_b:
+        if line in lines_a:
+            if lines_a[line][0] > lines_b[line][0]:
+                attacks += 1
+        else:
+            attacks += 1
+    return attacks
+
+
+def get_lines(a, ref_a, ref_b):
+    lines_a = dict()
+    lines_b = dict()
+    for a_r in ref_a:
+        if a_r != a:
+            dist = get_distance(a, a_r)
+            line = find_line(a, a_r)
+            if line in lines_a:
+                if dist < lines_a[line][0]:
+                    lines_a[line] = (dist, a_r)
+            else:
+                lines_a[line] = (dist, a_r)
+    for b_r in ref_b:
+        dist = get_distance(a, b_r)
+        line = find_line(a, b_r)
+        if line in lines_b:
+            if dist < lines_b[line][0]:
+                lines_b[line] = (dist, b_r)
+        else:
+            lines_b[line] = (dist, b_r)
+    return lines_a, lines_b
 
 
 def find_lines(a, ref_a, ref_b, ref_b_radial):
@@ -107,6 +140,6 @@ def check_limit(p1, p2, limit):
     return get_distance(p1, p2) <= limit
 
 
-lns = solution([42, 59], [34, 44], [6, 34], 5000)
-
+at = solution([42, 59], [34, 44], [6, 34], 5000)
+print(at)
 
